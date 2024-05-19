@@ -36,7 +36,7 @@ function App() {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <ul className="menu w-80 min-h-full bg-black text-base-content">
+                  <ul className="menu w-80 min-h-full bg-gray-800 text-base-content">
                     <Left />
                   </ul>
                 </div>

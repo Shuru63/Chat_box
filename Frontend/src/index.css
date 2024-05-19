@@ -5,3 +5,15 @@
 .flex-1::-webkit-scrollbar {
   display: none;
 }
+.back-img{
+  background: url('../src/static_data/backimg.avif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.backchat-img{
+  background: url('../src/static_data/wp4410743.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
