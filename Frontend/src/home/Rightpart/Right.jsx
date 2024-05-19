@@ -5,14 +5,14 @@ import Typesend from "./Typesend";
 import useConversation from "../../zustand/useConversation.js";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import { CiMenuFries } from "react-icons/ci";
-
+import pic1 from '../../static_data/profile.jpeg'
 function Right() {
   const { selectedConversation, setSelectedConversation } = useConversation();
   useEffect(() => {
     return setSelectedConversation(null);
   }, [setSelectedConversation]);
   return (
-    <div className="w-full bg-slate-900 text-gray-300">
+    <div className="w-full bg-slate-900 text-gray-300 backchat-img">
       <div>
         {!selectedConversation ? (
           <NoChatSelected />

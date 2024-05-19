@@ -20,7 +20,7 @@ function Messages() {
   }, [messages]);
   return (
     <div
-      className="flex-1 overflow-y-auto"
+      className="flex-1 overflow-y-auto backchat-img"
       style={{ minHeight: "calc(92vh - 8vh)" }}
     >
       {loading ? (
