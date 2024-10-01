@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
 const createTokenAndSaveCookie = (userId, res) => {
   const token = jwt.sign({ userId }, process.env.JWT_TOKEN, {
@@ -10,4 +10,5 @@ const createTokenAndSaveCookie = (userId, res) => {
     sameSite: "strict", // csrf
   });
 };
-export default createTokenAndSaveCookie;
+
+module.exports =  createTokenAndSaveCookie;
