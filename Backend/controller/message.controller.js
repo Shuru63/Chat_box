@@ -1,11 +1,12 @@
-import { getReceiverSocketId, io } from "../SocketIO/server.js";
-import Conversation from "../models/conversation.model.js";
-import Message from "../models/message.model.js";
-export const sendMessage = async (req, res) => {
+const { getReceiverSocketId, io } = require("../SocketIO/server.js");
+const Conversation = require("../models/conversation.model.js");
+const Message = require("../models/message.model.js");
+const translateMessage  = require("./translater.js");
+ const sendMessage = async (req, res) => {
   try {
     const { message } = req.body;
     const { id: receiverId } = req.params;
-    const senderId = req.user._id; // current logged in user
+    const senderId = req.user._id; 
     let conversation = await Conversation.findOne({
       members: { $all: [senderId, receiverId] },
     });
@@ -36,10 +37,10 @@ export const sendMessage = async (req, res) => {
   }
 };
 
-export const getMessage = async (req, res) => {
+ const getMessage = async (req, res) => {
   try {
     const { id: chatUser } = req.params;
-    const senderId = req.user._id; // current logged in user
+    const senderId = req.user._id; 
     let conversation = await Conversation.findOne({
       members: { $all: [senderId, chatUser] },
     }).populate("messages");
@@ -52,4 +53,40 @@ export const getMessage = async (req, res) => {
     console.log("Error in getMessage", error);
     res.status(500).json({ error: "Internal server error" });
   }
+};
+
+const handleTranslateMessage = async (req, res) => {
+  const { preferredLanguage } = req.body;
+  const { id: chatUser } = req.params;
+  const senderId = req.user._id; 
+
+  try {
+    let conversation = await Conversation.findOne({
+      members: { $all: [senderId, chatUser] },
+    }).populate("messages");
+
+    if (!conversation) {
+      return res.status(404).json({ error: "Conversation not found" });
+    }
+
+    const messages = conversation.messages;
+    const translatedMessages = await Promise.all(
+      messages.map(async (item) => {
+        const translatedMessage = await translateMessage(item.message, preferredLanguage);
+        return translatedMessage; 
+      })
+    );
+
+    console.log(translatedMessages);
+    res.status(200).json({ messages: translatedMessages });
+  } catch (error) {
+    console.error("Translation error:", error);
+    res.status(500).json({ error: "Translation failed" });
+  }
+};
+
+module.exports = {
+  sendMessage,
+  getMessage,
+  handleTranslateMessage,
 };

@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
-import User from "../models/user.model.js";
-import Message from "./message.model.js";
+const mongoose = require("mongoose");
+const User = require("../models/user.model.js");
+const Message = require("./message.model.js");
+
 const conversationSchema = new mongoose.Schema(
   {
     members: [
@@ -21,4 +22,4 @@ const conversationSchema = new mongoose.Schema(
 );
 
 const Conversation = mongoose.model("conversation", conversationSchema);
-export default Conversation;
+module.exports =  Conversation;

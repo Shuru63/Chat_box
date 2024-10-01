@@ -1,12 +1,13 @@
-import express from "express";
-import dotenv from "dotenv";
-import mongoose from "mongoose";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
-import userRoute from "./routes/user.route.js";
-import messageRoute from "./routes/message.route.js";
-import { app, server } from "./SocketIO/server.js";
+const userRoute = require("./routes/user.route.js");
+const messageRoute = require("./routes/message.route.js");
+const { app, server } = require("./SocketIO/server.js");
+
 
 dotenv.config();
 
